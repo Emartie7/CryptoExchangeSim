@@ -28,6 +28,9 @@
  *  Includes
  ***********************************************/
 #include <iostream>
+#include <map>
+#include <string>
+#include <sstream>
 
 /********************************************//**
  *  Defines
@@ -37,17 +40,43 @@
  *  Local Params
  ***********************************************/
 
+/********************************************//**
+ *  Local functions
+ ***********************************************/
+void printHelp()
+{
+    std::cout << "Help is on the way" << std::endl;
+}
+void printExchangeStats()
+{
+    std::cout << "Market looks good" << std::endl;
+}
+void makeOffer()
+{
+    std::cout << "Make an offer: " << std::endl;
+}
+void makeBid()
+{
+    std::cout << "Make a bid - enter the amount" << std::endl;
+}
+void printWallet()
+{
+    std::cout << "Your wallet has: " << std::endl;
+}
+void processNext()
+{
+   std::cout << "Make your next selection." << std::endl; 
+}
 
 /***************************************************************************//**
- * Main(void)
+ * printMenu(void)
  *
- * Present user with an interactive menu. Always returns 0
+ * Print menu options to terminal.
  *
  * @param none Nothing yet
  ******************************************************************************/
-int main(void)
+void printMenu()
 {
-    int userOption = 0;
     /* 
     //1 Print help
     //2 print exchange stats
@@ -57,47 +86,97 @@ int main(void)
     //6 continue 
     //7 Exit program
     */
-    while(true)
+    std::cout << "1: Print help" << std::endl;
+    std::cout << "2: Print exchange stats" << std::endl;
+    std::cout << "3: Make an offer" << std::endl;
+    std::cout << "4: Make a bid" << std::endl;
+    std::cout << "5: Print wallet" << std::endl;
+    std::cout << "6: Continue" << std::endl;
+    std::cout << "7: Exit" << std::endl;
+    std::cout << "=================================" << std::endl;
+}
+
+/***************************************************************************//**
+ * int getUserOption(void)
+ *
+ * Get user input from terminal and perform validation checks.
+ * 
+ * Limitations,assumptions & restrictions:
+ * 1. Only integer-type inputs are valid.
+ * 2. Valid range integer value is 1-7
+ *
+ * @param none Nothing yet
+ ******************************************************************************/
+int getUserOption()
+{
+    std::string strIn;
+    int userOption = 0;
+    int ret        = -1;
+
+    std::cout << "Type in 1-6" << std::endl;
+    getline(std::cin,strIn);
+
+    std::stringstream str(strIn);
+    str >> userOption;
+
+    if(!str)
     {
-        
-        std::cout << "1: Print help" << std::endl;
-        std::cout << "2: Print exchange stats" << std::endl;
-        std::cout << "3: Make an offer" << std::endl;
-        std::cout << "4: Make a bid" << std::endl;
-        std::cout << "5: Print wallet" << std::endl;
-        std::cout << "6: Continue" << std::endl;
-        std::cout << "7: Exit" << std::endl;
-        std::cout << "=================================" << std::endl;
+        std::cout << "   ERROR: Invalid input type." << std::endl;
+    }
+    else if((userOption > 0) && (userOption < 8))
+    {
+        std::cout << "   You chose: " << userOption << std::endl;
+        ret = userOption;
+    }
+    else std::cout << "   WARNING: Input out of range. Make another selection." << std::endl;
 
-        std::cout << "Type in 1-6" << std::endl;
-        std::cin >>userOption;
-        std::cout << "You chose: " << userOption << std::endl;
+    return ret;
+}
 
-        if(userOption==7) break; //Exit while loop upon user request
+/***************************************************************************//**
+ * void processUserOption(int)
+ *
+ * Take action based on user input.
+ * 
+ * Limitations,assumptions & restrictions:
+ * 1. Assumes input has already been validated (see 'getUserOption()')
+ * 2. Assumes input map arg. has been initialized with pointers to valid functions.
+ * 3. Assumes functions in input map require no inputs and ignores any return values (for now).
+ *
+ * @param none Nothing yet
+ ******************************************************************************/
+void processUserOption(std::map<int,void(*)()> mFuncs, int selection)
+{
+    void (*optFunc) () = mFuncs[selection];
+    optFunc();
+    std::cout << std::endl;
+}
+/***************************************************************************//**
+ * Main(void)
+ *
+ * Present user with an interactive menu. Always returns 0
+ *
+ * @param none Nothing yet
+ ******************************************************************************/
+int main(void)
+{
+    std::map<int,void(*)()> menuFuncs;
+    int option = 0;
 
-        switch(userOption)
-        {
-            case 1:
-                std::cout << "Help is on the way" << std::endl;
-                break;
-            case 2:
-                std::cout << "Market looks good" << std::endl;
-                break;
-            case 3:
-                std::cout << "Make an offer: " << std::endl;
-                break;
-            case 4:
-                std::cout << "Make a bid - enter the amount" << std::endl;
-                break;
-            case 5:
-                std::cout << "Your wallet has: " << std::endl;
-                break;
-            case 6:
-                std::cout << "Make another selection!" << std::endl;
-                break;
-            default: std::cout << "WARNING: Invalid input, enter 1-6" << std::endl;
-        }
-        std::cout << std::endl;
+    menuFuncs[1] = printHelp;
+    menuFuncs[2] = printExchangeStats;
+    menuFuncs[3] = makeOffer;
+    menuFuncs[4] = makeBid;
+    menuFuncs[5] = printWallet;
+    menuFuncs[6] = processNext;
+
+    while(true)
+    { 
+        printMenu();
+        option = getUserOption();
+
+        if(option == 7) break; //Exit program
+        else if(option > 0) processUserOption(menuFuncs,option);
     }
     return 0;
 }
