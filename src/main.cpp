@@ -31,7 +31,7 @@
 #include <map>
 #include <string>
 #include <sstream>
-
+#include "UserMenuIF.h"
 /********************************************//**
  *  Defines
  ***********************************************/
@@ -43,30 +43,7 @@
 /********************************************//**
  *  Local functions
  ***********************************************/
-void printHelp()
-{
-    std::cout << "Help is on the way" << std::endl;
-}
-void printExchangeStats()
-{
-    std::cout << "Market looks good" << std::endl;
-}
-void makeOffer()
-{
-    std::cout << "Make an offer: " << std::endl;
-}
-void makeBid()
-{
-    std::cout << "Make a bid - enter the amount" << std::endl;
-}
-void printWallet()
-{
-    std::cout << "Your wallet has: " << std::endl;
-}
-void processNext()
-{
-   std::cout << "Make your next selection." << std::endl; 
-}
+
 
 /***************************************************************************//**
  * printMenu(void)
