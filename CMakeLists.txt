@@ -23,9 +23,10 @@ if(BUILD_GTEST)
     target_link_libraries(${PROJECT_NAME} GTest::gtest_main)
     gtest_discover_tests(${PROJECT_NAME})
 else()
-    add_executable(${PROJECT_NAME} src/main.cpp src/UserMenuIF/UserMenuIF.cpp) #Use application "main"
+    add_executable(${PROJECT_NAME} src/main.cpp src/UserMenuIF/UserMenuIF.cpp src/OrderBookLib/OrderBookLib.cpp) #Use application "main"
 endif()
 target_include_directories(${PROJECT_NAME} PUBLIC 
-                           ${CMAKE_CURRENT_SOURCE_DIR}/src/UserMenuIF)
+                           ${CMAKE_CURRENT_SOURCE_DIR}/src/UserMenuIF
+                           ${CMAKE_CURRENT_SOURCE_DIR}/src/OrderBookLib)
 
 

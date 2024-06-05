@@ -31,7 +31,9 @@
 #include <map>
 #include <string>
 #include <sstream>
+#include <vector>
 #include "UserMenuIF.h"
+#include "OrderBookLib.h"
 /********************************************//**
  *  Defines
  ***********************************************/
@@ -128,14 +130,8 @@ void processUserOption(std::map<int,void(*)()> mFuncs, int selection)
     optFunc();
     std::cout << std::endl;
 }
-/***************************************************************************//**
- * Main(void)
- *
- * Present user with an interactive menu. Always returns 0
- *
- * @param none Nothing yet
- ******************************************************************************/
-int main(void)
+
+void MerkleRexMain(void)
 {
     std::map<int,void(*)()> menuFuncs;
     int option = 0;
@@ -155,5 +151,36 @@ int main(void)
         if(option == 7) break; //Exit program
         else if(option > 0) processUserOption(menuFuncs,option);
     }
+}
+
+void classesFunc(void)
+{
+    std::vector<OrderBookEntry> entries;
+    double max,min = 0.0;
+    entries.push_back(OrderBookEntry{"2020/03/17 17:01:24.884492","BTC/USDT",OrderBookType::ask,5.750,0.00575});
+    entries.push_back(OrderBookEntry{"2020/03/17 17:01:24.884492","ETH/BTC",OrderBookType::bid,0.02186299,0.1});
+    entries.push_back(OrderBookEntry{"2020/03/17 17:01:55.120438","DOGE/BTC",OrderBookType::bid,0.0000003,29468687.918283});
+    entries.push_back(OrderBookEntry{"2020/03/17 17:01:55.120438","DOGE/BTC",OrderBookType::ask,0.00000031,11905712.11186});
+    entries.push_back(OrderBookEntry{"2020/03/17 17:01:55.120438","ETH/USDT",OrderBookType::bid,117.2971325,6.0});
+
+    printEntryPrices(entries);
+    max = computeHighPrice(entries);
+    min = computeLowPrice(entries);
+
+    std::cout << "Max price is: " << max << std::endl
+              << "Low price is: " << min << std::endl;
+}
+
+/***************************************************************************//**
+ * Main(void)
+ *
+ * Present user with an interactive menu. Always returns 0
+ *
+ * @param none Nothing yet
+ ******************************************************************************/
+int main(void)
+{
+    // classesFunc();
+    MerkleRexMain();
     return 0;
 }
