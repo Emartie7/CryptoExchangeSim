@@ -25,24 +25,39 @@
 /********************************************//**
  *  Includes
  ***********************************************/
-#include <iostream>
-#include <map>
-#include <string>
-#include <sstream>
+#pragma once
 
+#include <vector>
+#include "OrderBookLib.h"
 /********************************************//**
  *  Defines
  ***********************************************/
+
 /********************************************//**
  *  Local Params
  ***********************************************/
 
 /********************************************//**
+ *  Class definitions
+ ***********************************************/
+class MerkelMain
+{
+    public:
+        MerkelMain() = default;
+        void init();
+    private:
+        void loadOrderBook();
+        void printHelp();
+        void printExchangeStats();
+        void makeOffer();
+        void makeBid();
+        void printWallet();
+        void processNext();
+        void processUserOption(int selection);
+        int getUserOption();
+        void printMenu();
+        std::vector<OrderBookEntry> orders;
+};
+/********************************************//**
  *  Function Prototypes
  ***********************************************/
-void printHelp();
-void printExchangeStats();
-void makeOffer();
-void makeBid();
-void printWallet();
-void processNext();
