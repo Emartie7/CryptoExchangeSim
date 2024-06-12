@@ -39,6 +39,34 @@ OrderBookEntry::OrderBookEntry(std::string timestamp,std::string product,OrderBo
 /********************************************//**
  *  Local Functions
  ***********************************************/
+std::vector<std::string> tokenise(std::string lineIn,char separator)
+{
+    std::vector<std::string> tokens;
+    std::string Token;
+    int start, end;
+
+    start = lineIn.find_first_not_of(separator,0);
+
+    do
+    {
+        end = lineIn.find_first_of(separator,start);
+        if (start == lineIn.length() or (start == end))
+            break;
+        if(end >= 0)
+        {
+            Token = lineIn.substr(start, end - start); //Slice from current start idx to next delimiter
+        }
+        else
+        {
+            Token = lineIn.substr(start,lineIn.length()-start); //Get the remainder of the line
+        }
+        tokens.push_back(Token);
+        start = end + 1;
+    } while (end > 0);
+    
+    return tokens;
+}
+
 void printEntryPrices(std::vector<OrderBookEntry>& entries)
 {
     for(OrderBookEntry& entry : entries)

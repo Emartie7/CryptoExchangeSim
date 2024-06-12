@@ -54,3 +54,4 @@ class OrderBookEntry
 void printEntryPrices(std::vector<OrderBookEntry>& entries);
 double computeHighPrice(std::vector<OrderBookEntry>& entries);
 double computeLowPrice(std::vector<OrderBookEntry>& entries);
+std::vector<std::string> tokenise(std::string lineIn,char separator);

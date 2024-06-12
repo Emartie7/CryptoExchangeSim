@@ -19,8 +19,8 @@ if(BUILD_GTEST)
     FetchContent_Declare(googletest URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip)
     FetchContent_MakeAvailable(GoogleTest)
     enable_testing()
-    add_executable(${PROJECT_NAME} src/UserMenuIF/UserMenuIF.cpp) #No "user-defined" main function, use GTest main.
-    target_link_libraries(${PROJECT_NAME} GTest::gtest_main)
+    add_executable(${PROJECT_NAME} test/MyTest.cpp src/UserMenuIF/UserMenuIF.cpp src/OrderBookLib/OrderBookLib.cpp) #No "user-defined" main function, use GTest main.
+    target_link_libraries(${PROJECT_NAME} GTest::gtest_main GTest::gmock)
     gtest_discover_tests(${PROJECT_NAME})
 else()
     add_executable(${PROJECT_NAME} src/main.cpp src/UserMenuIF/UserMenuIF.cpp src/OrderBookLib/OrderBookLib.cpp) #Use application "main"
