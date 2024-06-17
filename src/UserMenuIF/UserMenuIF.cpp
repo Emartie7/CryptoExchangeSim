@@ -30,6 +30,7 @@
 #include <string>
 #include <sstream>
 #include "UserMenuIF.h"
+#include "CsvReader.h"
 /********************************************//**
  *  Defines
  ***********************************************/
@@ -152,11 +153,7 @@ void MerkelMain::processUserOption(int selection)
 
 void MerkelMain::loadOrderBook()
 {
-    orders.push_back(OrderBookEntry{"2020/03/17 17:01:24.884492","BTC/USDT",OrderBookType::ask,5.750,0.00575});
-    orders.push_back(OrderBookEntry{"2020/03/17 17:01:24.884492","ETH/BTC",OrderBookType::bid,0.02186299,0.1});
-    orders.push_back(OrderBookEntry{"2020/03/17 17:01:55.120438","DOGE/BTC",OrderBookType::bid,0.0000003,29468687.918283});
-    orders.push_back(OrderBookEntry{"2020/03/17 17:01:55.120438","DOGE/BTC",OrderBookType::ask,0.00000031,11905712.11186});
-    orders.push_back(OrderBookEntry{"2020/03/17 17:01:55.120438","ETH/USDT",OrderBookType::bid,117.2971325,6.0});
+    orders = CsvReader::readCSV("DataSets/OrderBook_Example.csv");
 }
 
 void MerkelMain::printHelp()
@@ -165,7 +162,16 @@ void MerkelMain::printHelp()
 }
 void MerkelMain::printExchangeStats()
 {
-    std::cout << "Market looks good" << std::endl;
+    double max,min = 0;
+    double avg = 0.0;
+    std::cout << "Market Information:" << std::endl;
+    max = computeHighPrice(orders);
+    min = computeLowPrice(orders);
+    avg = averagePrice(orders);
+        std::cout << "   Max price is: " << max << std::endl
+                  << "   Low price is: " << min << std::endl
+                  << "   Avg price is: " << avg << std::endl;
+    countOrderTypes(orders);
 }
 void MerkelMain::makeOffer()
 {

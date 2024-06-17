@@ -31,9 +31,11 @@
 #include <map>
 #include <string>
 #include <sstream>
+#include <fstream>
 #include <vector>
 #include "UserMenuIF.h"
 #include "OrderBookLib.h"
+#include "CsvReader.h"
 /********************************************//**
  *  Defines
  ***********************************************/
@@ -43,21 +45,12 @@
  ***********************************************/
 
 /********************************************//**
- *  Local functions
+ *  Class defines
  ***********************************************/
 
-void classesFunc(void)
-{
-    std::vector<OrderBookEntry> entries;
-    double max,min = 0.0;
-
-    printEntryPrices(entries);
-    max = computeHighPrice(entries);
-    min = computeLowPrice(entries);
-
-    std::cout << "Max price is: " << max << std::endl
-              << "Low price is: " << min << std::endl;
-}
+/********************************************//**
+ *  Local functions
+ ***********************************************/
 
 /***************************************************************************//**
  * Main(void)
@@ -68,13 +61,6 @@ void classesFunc(void)
  ******************************************************************************/
 int main(void)
 {
-    // std::string s = "2020/03/17 17:01:24.884492,BTC/USDT,bid,5323.25277012,1.97008162";
-    // std::vector<std::string> tokens = tokenise(s,',');
-
-    // for (const std::string& t : tokens)
-    // {
-    //     std::cout << t << std::endl;
-    // }
     MerkelMain app;
     app.init();
     return 0;

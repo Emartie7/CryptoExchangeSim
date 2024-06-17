@@ -39,32 +39,11 @@ OrderBookEntry::OrderBookEntry(std::string timestamp,std::string product,OrderBo
 /********************************************//**
  *  Local Functions
  ***********************************************/
-std::vector<std::string> tokenise(std::string lineIn,char separator)
+OrderBookType OrderBookEntry::stringToObeType(const std::string& s)
 {
-    std::vector<std::string> tokens;
-    std::string Token;
-    int start, end;
-
-    start = lineIn.find_first_not_of(separator,0);
-
-    do
-    {
-        end = lineIn.find_first_of(separator,start);
-        if (start == lineIn.length() or (start == end))
-            break;
-        if(end >= 0)
-        {
-            Token = lineIn.substr(start, end - start); //Slice from current start idx to next delimiter
-        }
-        else
-        {
-            Token = lineIn.substr(start,lineIn.length()-start); //Get the remainder of the line
-        }
-        tokens.push_back(Token);
-        start = end + 1;
-    } while (end > 0);
-    
-    return tokens;
+    if("ask" == s)      return OrderBookType::ask;
+    else if("bid" == s) return OrderBookType::bid;
+    else                return OrderBookType::unknown;
 }
 
 void printEntryPrices(std::vector<OrderBookEntry>& entries)
@@ -105,4 +84,36 @@ double computeLowPrice(std::vector<OrderBookEntry>& entries)
         }
     }
     return priceMin;
+}
+
+double averagePrice(std::vector<OrderBookEntry>& entries)
+{
+    double sum = 0.0;
+    for(const OrderBookEntry& entry : entries)
+    {
+        sum += entry._price;
+    }
+    return sum/(entries.size());
+}
+
+void countOrderTypes(std::vector<OrderBookEntry>& entries)
+{
+    unsigned int bid = 0;
+    unsigned int ask = 0;
+    for(const OrderBookEntry& entry : entries)
+    {
+        switch(entry._OrderType)
+        {
+            case OrderBookType::ask:
+                ask++;
+                break;
+            case OrderBookType::bid:
+                bid++;
+                break;
+            default:
+                break; //Do nothing for now
+        }
+    }
+    std::cout << "   Number of asks: " << ask << std::endl
+              << "   Number of bids: " << bid << std::endl;
 }

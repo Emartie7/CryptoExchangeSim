@@ -13,43 +13,33 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 
 /**
- * @file OrderBookLib.h
+ * @file CsvReader.h
  * @author Edward Martinez
- * @brief Header file for functionality related to order book entries.
+ * @brief Source code for reading data sets from CSV files.
  * @version 0.1
- * @date 2024-06-04
+ * @date 2024-06-16
  * 
  * @copyright Copyright (c) 2024
  * 
  */
+
 #pragma once
 /********************************************//**
  *  Includes
  ***********************************************/
-#include <string>
+#include "../OrderBookLib/OrderBookLib.h"
 #include <vector>
-
+#include <string>
 /********************************************//**
- *  Class Definitions
+ *  Class Prototypes
  ***********************************************/
-enum class OrderBookType:char {bid,ask,unknown};
-
-class OrderBookEntry
+class CsvReader
 {
     public:
-        std::string _timestamp;
-        std::string _product;
-        OrderBookType _OrderType;
-        double _price;
-        double _amount;
-        OrderBookEntry(std::string timestamp,std::string product,OrderBookType OrderType,double price, double amount);
-        static OrderBookType stringToObeType(const std::string& s);
+        CsvReader();
+        static std::vector<OrderBookEntry> readCSV(std::string csvFileName);
+    private:
+        static std::vector<std::string> tokenise(std::string lineIn,char separator);
+        static OrderBookEntry stringsToOBE(std::vector<std::string> strings);
+
 };
-/********************************************//**
- *  Function Prototypes
- ***********************************************/
-void printEntryPrices(std::vector<OrderBookEntry>& entries);
-double computeHighPrice(std::vector<OrderBookEntry>& entries);
-double computeLowPrice(std::vector<OrderBookEntry>& entries);
-double averagePrice(std::vector<OrderBookEntry>& entries);
-void countOrderTypes(std::vector<OrderBookEntry>& entries);
