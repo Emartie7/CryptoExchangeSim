@@ -153,7 +153,7 @@ void MerkelMain::processUserOption(int selection)
 
 void MerkelMain::loadOrderBook()
 {
-    orders = CsvReader::readCSV("DataSets/OrderBook_Example.csv");
+    // orders = CsvReader::readCSV("DataSets/OrderBook_Example.csv");
 }
 
 void MerkelMain::printHelp()
@@ -164,14 +164,24 @@ void MerkelMain::printExchangeStats()
 {
     double max,min = 0;
     double avg = 0.0;
+    std::string currentTime = "2020/03/17 17:01:24.884492";
     std::cout << "Market Information:" << std::endl;
-    max = computeHighPrice(orders);
-    min = computeLowPrice(orders);
-    avg = averagePrice(orders);
-        std::cout << "   Max price is: " << max << std::endl
-                  << "   Low price is: " << min << std::endl
-                  << "   Avg price is: " << avg << std::endl;
-    countOrderTypes(orders);
+    for(const std::string & prod : orderBook.getKnownProducts())
+    {
+        std::cout << "Product: " << prod << std::endl;
+        std::vector<OrderBookEntry> entriesAsk = orderBook.getOrders(OrderBookType::ask, prod, currentTime);
+        std::vector<OrderBookEntry> entriesBids = orderBook.getOrders(OrderBookType::bid, prod, currentTime);
+
+        std::cout << "   Asks seen: " << entriesAsk.size() << std::endl
+                  << "   Max ask  : " << orderBook.getHighPrice(entriesAsk) << std::endl
+                  << "   Min ask  : " << orderBook.getLowPrice(entriesAsk) << std::endl 
+                  << "   Spread   : " << orderBook.getSpread(entriesAsk) << std::endl << std::endl;
+
+        std::cout << "   Bids seen: " << entriesBids.size() << std::endl
+                  << "   Max Bid  : " << orderBook.getHighPrice(entriesBids) << std::endl
+                  << "   Min Bid  : " << orderBook.getLowPrice(entriesBids) << std::endl
+                  << "   Spread   : " << orderBook.getSpread(entriesBids) << std::endl << std::endl;
+    }
 }
 void MerkelMain::makeOffer()
 {

@@ -29,6 +29,7 @@
 
 #include <vector>
 #include "OrderBookLib.h"
+#include "OrderBook.h"
 /********************************************//**
  *  Defines
  ***********************************************/
@@ -56,7 +57,8 @@ class MerkelMain
         void processUserOption(int selection);
         int getUserOption();
         void printMenu();
-        std::vector<OrderBookEntry> orders;
+        // std::vector<OrderBookEntry> orders;
+        OrderBook orderBook{"DataSets/OrderBook_Example.csv"};
 };
 /********************************************//**
  *  Function Prototypes

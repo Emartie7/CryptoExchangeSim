@@ -13,11 +13,11 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 
 /**
- * @file OrderBookLib.h
+ * @file OrderBook.h
  * @author Edward Martinez
- * @brief Header file for functionality related to order book entries.
+ * @brief Header file for functionality related to order book class.
  * @version 0.1
- * @date 2024-06-04
+ * @date 2024-06-22
  * 
  * @copyright Copyright (c) 2024
  * 
@@ -26,33 +26,32 @@
 /********************************************//**
  *  Includes
  ***********************************************/
+#include "../OrderBookLib/OrderBookLib.h"
+#include "../CsvReader/CsvReader.h"
 #include <string>
 #include <vector>
 
 /********************************************//**
  *  Class Definitions
  ***********************************************/
-enum class OrderBookType:char {bid,ask,unknown};
+/*! @class OrderBook
+    @brief Class for exchange orderbook data.
 
-/*! @class OrderBookEntry
-    @brief Class for an entry of order book data.
+    Serves as a wrapper for handling orderbook data entries and performing statistical analyses.
 */
-class OrderBookEntry
+class OrderBook
 {
     public:
-        std::string _timestamp;
-        std::string _product;
-        OrderBookType _OrderType;
-        double _price;
-        double _amount;
-        OrderBookEntry(std::string timestamp,std::string product,OrderBookType OrderType,double price, double amount);
-        static OrderBookType stringToObeType(const std::string& s);
+        OrderBook(std::string filename);
+        std::vector<std::string> getKnownProducts();
+        std::vector<OrderBookEntry> getOrders(OrderBookType type,
+        std::string product,
+        std::string timestamp);
+
+        static double getHighPrice(std::vector<OrderBookEntry>& OrdersSub);
+        static double getLowPrice(std::vector<OrderBookEntry>& OrdersSub);
+        static double getSpread(std::vector<OrderBookEntry>& OrdersSub);
+
+    private:
+        std::vector<OrderBookEntry> orders;
 };
-/********************************************//**
- *  Function Prototypes
- ***********************************************/
-void printEntryPrices(std::vector<OrderBookEntry>& entries);
-double computeHighPrice(std::vector<OrderBookEntry>& entries);
-double computeLowPrice(std::vector<OrderBookEntry>& entries);
-double averagePrice(std::vector<OrderBookEntry>& entries);
-void countOrderTypes(std::vector<OrderBookEntry>& entries);
