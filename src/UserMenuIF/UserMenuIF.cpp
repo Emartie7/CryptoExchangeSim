@@ -61,6 +61,7 @@ void MerkelMain::printMenu()
     //6 continue 
     //7 Exit program
     */
+    std::cout << "The current time is: " << currentTime << std::endl;
     std::cout << "1: Print help" << std::endl;
     std::cout << "2: Print exchange stats" << std::endl;
     std::cout << "3: Make an offer" << std::endl;
@@ -164,7 +165,7 @@ void MerkelMain::printExchangeStats()
 {
     double max,min = 0;
     double avg = 0.0;
-    std::string currentTime = "2020/03/17 17:01:24.884492";
+    // std::string currentTime = "2020/03/17 17:01:24.884492";
     std::cout << "Market Information:" << std::endl;
     for(const std::string & prod : orderBook.getKnownProducts())
     {
@@ -197,13 +198,14 @@ void MerkelMain::printWallet()
 }
 void MerkelMain::processNext()
 {
-   std::cout << "Make your next selection." << std::endl; 
+   std::cout << "Going to next time step." << std::endl;
+   currentTime = orderBook.getNextTime(currentTime); 
 }
 
 void MerkelMain::init()
 {
     loadOrderBook();
-    
+    currentTime = orderBook.getEarliestTime();
     int option = 0;
 
     while(true)

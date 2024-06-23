@@ -51,6 +51,8 @@ class OrderBook
         static double getHighPrice(std::vector<OrderBookEntry>& OrdersSub);
         static double getLowPrice(std::vector<OrderBookEntry>& OrdersSub);
         static double getSpread(std::vector<OrderBookEntry>& OrdersSub);
+        std::string getEarliestTime();
+        std::string getNextTime(const std::string & timestamp);
 
     private:
         std::vector<OrderBookEntry> orders;

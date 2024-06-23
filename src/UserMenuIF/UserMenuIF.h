@@ -57,7 +57,7 @@ class MerkelMain
         void processUserOption(int selection);
         int getUserOption();
         void printMenu();
-        // std::vector<OrderBookEntry> orders;
+        std::string currentTime;
         OrderBook orderBook{"DataSets/OrderBook_Example.csv"};
 };
 /********************************************//**

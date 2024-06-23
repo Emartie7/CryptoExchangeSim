@@ -118,3 +118,30 @@ double OrderBook::getSpread(std::vector<OrderBookEntry>& OrdersSub)
     double spread = max - min;
     return spread;
 }
+
+std::string OrderBook::getEarliestTime()
+{
+    std::string first_timestamp = this->orders[0]._timestamp; //Get first timestamp in entry list
+
+    for(OrderBookEntry &e : this->orders)
+    {
+        if(e._timestamp < first_timestamp) first_timestamp = e._timestamp;
+    }
+    return first_timestamp;
+}
+
+std::string OrderBook::getNextTime(const std::string & timestamp)
+{
+    std::string next_timestamp = "";
+    for(OrderBookEntry &e : orders)
+    {
+        if(e._timestamp > timestamp) 
+        {
+            next_timestamp = e._timestamp;
+            break;
+        }
+    }
+
+    if( next_timestamp == "") next_timestamp = getEarliestTime();
+    return next_timestamp;
+}
