@@ -39,6 +39,11 @@ OrderBookEntry::OrderBookEntry(std::string timestamp,std::string product,OrderBo
 /********************************************//**
  *  Local Functions
  ***********************************************/
+/**
+ * @brief Returns OrderBookType representation of a given string.
+ * 
+ * @param s String representation of OrderBookType (i.e. "Bid" or "Ask")
+ */
 OrderBookType OrderBookEntry::stringToObeType(const std::string& s)
 {
     if("ask" == s)      return OrderBookType::ask;
@@ -56,76 +61,4 @@ OrderBookType OrderBookEntry::stringToObeType(const std::string& s)
 bool OrderBookEntry::compareByTimestamp(const OrderBookEntry &e1, const OrderBookEntry &e2)
 {
     return e1._timestamp < e2._timestamp;
-}
-
-void printEntryPrices(std::vector<OrderBookEntry>& entries)
-{
-    for(OrderBookEntry& entry : entries)
-    {
-        std::cout << entry._product << " price: " << entry._price << std::endl;
-    }
-}
-
-double computeHighPrice(std::vector<OrderBookEntry>& entries)
-{
-    double priceMax = 0.0;
-    for(OrderBookEntry& entry : entries)
-    {
-        if(entry._price > priceMax)
-        {
-            priceMax = entry._price;
-        }
-    }
-    return priceMax;
-}
-
-double computeLowPrice(std::vector<OrderBookEntry>& entries)
-{
-    double priceMin = 0.0;
-    bool firstEntry = true;
-    for(OrderBookEntry& entry : entries)
-    {
-        if(firstEntry)
-        {
-            priceMin = entry._price;
-            firstEntry = false;
-        }
-        else if(priceMin > entry._price)
-        {
-            priceMin = entry._price;
-        }
-    }
-    return priceMin;
-}
-
-double averagePrice(std::vector<OrderBookEntry>& entries)
-{
-    double sum = 0.0;
-    for(const OrderBookEntry& entry : entries)
-    {
-        sum += entry._price;
-    }
-    return sum/(entries.size());
-}
-
-void countOrderTypes(std::vector<OrderBookEntry>& entries)
-{
-    unsigned int bid = 0;
-    unsigned int ask = 0;
-    for(const OrderBookEntry& entry : entries)
-    {
-        switch(entry._OrderType)
-        {
-            case OrderBookType::ask:
-                ask++;
-                break;
-            case OrderBookType::bid:
-                bid++;
-                break;
-            default:
-                break; //Do nothing for now
-        }
-    }
-    std::cout << "   Number of asks: " << ask << std::endl
-              << "   Number of bids: " << bid << std::endl;
 }
