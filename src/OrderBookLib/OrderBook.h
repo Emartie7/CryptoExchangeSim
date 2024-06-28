@@ -53,6 +53,7 @@ class OrderBook
         static double getSpread(std::vector<OrderBookEntry>& OrdersSub);
         std::string getEarliestTime();
         std::string getNextTime(const std::string & timestamp);
+        void insertOrder(OrderBookEntry &order);
 
     private:
         std::vector<OrderBookEntry> orders;

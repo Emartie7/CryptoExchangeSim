@@ -41,6 +41,11 @@
 /********************************************//**
  *  Class definitions
  ***********************************************/
+/*! @class MerkelMain
+    @brief Class for currency exchange application.
+
+    Implements the terminal-based UI for orderbook and exchange I/O.
+*/
 class MerkelMain
 {
     public:
@@ -50,7 +55,7 @@ class MerkelMain
         void loadOrderBook();
         void printHelp();
         void printExchangeStats();
-        void makeOffer();
+        void enterAsk();
         void makeBid();
         void printWallet();
         void processNext();

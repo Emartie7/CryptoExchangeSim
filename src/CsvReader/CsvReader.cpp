@@ -117,6 +117,12 @@ std::vector<std::string> CsvReader::tokenise(std::string lineIn, char separator)
     
     return tokens;
 }
+/**
+ * @brief Generates a OrderBookEntry object.
+ * 
+ * Takes a vector of strings and converts types to return a new OBE.
+ * @param tokens Vector containing OBE attributes as strings.
+ */
 OrderBookEntry CsvReader::stringsToOBE(std::vector<std::string> tokens)
 {
     double price, amount;
@@ -138,4 +144,40 @@ OrderBookEntry CsvReader::stringsToOBE(std::vector<std::string> tokens)
                        price,
                        amount};
     return obe;
+}
+
+/**
+ * @brief Generates a OrderBookEntry object.
+ * 
+ * Takes string args. and converts types to return a new OBE.
+ * @param priceString Order price as a string
+ * @param amountString Order amount as a string
+ * @param timestamp Timestamp as a string
+ * @param product Product type (i.e. "BTC/ETH" as a string
+ * @param orderType Bid or Ask
+ */
+OrderBookEntry CsvReader::stringsToOBE(std::string priceString,
+                                    std::string amountString,
+                                    std::string timestamp,
+                                    std::string product,
+                                    OrderBookType orderType)
+{
+    double price, amount;
+    try 
+    {
+        price = std::stod(priceString);
+        amount = std::stod(amountString);
+    }catch(const std::exception& e)
+    {
+        std::cout << "CSVReader::stringsToOBE Bad float! " << priceString<< std::endl;
+        std::cout << "CSVReader::stringsToOBE Bad float! " << amountString<< std::endl;
+        throw; // throw up to the calling function
+    }
+    OrderBookEntry obe{timestamp,
+                       product,
+                       orderType,
+                       price,
+                       amount
+    };
+    return obe;   
 }

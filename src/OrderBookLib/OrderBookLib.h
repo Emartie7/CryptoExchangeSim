@@ -47,6 +47,7 @@ class OrderBookEntry
         double _amount;
         OrderBookEntry(std::string timestamp,std::string product,OrderBookType OrderType,double price, double amount);
         static OrderBookType stringToObeType(const std::string& s);
+        static bool compareByTimestamp(const OrderBookEntry &e1, const OrderBookEntry &e2);
 };
 /********************************************//**
  *  Function Prototypes

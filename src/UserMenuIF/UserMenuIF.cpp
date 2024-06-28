@@ -64,10 +64,10 @@ void MerkelMain::printMenu()
     std::cout << "The current time is: " << currentTime << std::endl;
     std::cout << "1: Print help" << std::endl;
     std::cout << "2: Print exchange stats" << std::endl;
-    std::cout << "3: Make an offer" << std::endl;
+    std::cout << "3: Make an ask" << std::endl;
     std::cout << "4: Make a bid" << std::endl;
     std::cout << "5: Print wallet" << std::endl;
-    std::cout << "6: Continue" << std::endl;
+    std::cout << "6: Go to next timeframe" << std::endl;
     std::cout << "7: Exit" << std::endl;
     std::cout << "=================================" << std::endl;
 }
@@ -134,7 +134,7 @@ void MerkelMain::processUserOption(int selection)
             this->printExchangeStats();
             break;
         case 3:
-            this->makeOffer();
+            this->enterAsk();
             break;
         case 4:
             this->makeBid();
@@ -184,13 +184,80 @@ void MerkelMain::printExchangeStats()
                   << "   Spread   : " << orderBook.getSpread(entriesBids) << std::endl << std::endl;
     }
 }
-void MerkelMain::makeOffer()
+/**
+ * @brief Generate an Ask to be added to the orderbook.
+ * 
+ * Prompts user for input to generate an OrderBookEntry object which is added to orderbook at the current time.
+ */
+void MerkelMain::enterAsk()
 {
-    std::cout << "Make an offer: " << std::endl;
+    std::string askStr;
+    
+    std::cout << "Make an ask - enter the amount: product, price, amount. E.g: ETH/BTC,200,0.5" << std::endl;
+
+    std::getline(std::cin, askStr);
+    std::cout << "   You entered: " << askStr << std::endl;
+    std::vector<std::string> tokens = CsvReader::tokenise(askStr,',');
+
+    if(tokens.size() < 3)
+    {
+        std::cout << "MerkelMain::enterAsk - Not enough tokens in user input." << std::endl;
+    }
+    else
+    {
+        try
+        {
+            OrderBookEntry obe = CsvReader::stringsToOBE(tokens[1],
+                                                        tokens[2],
+                                                        currentTime,
+                                                        tokens[0],
+                                                        OrderBookType::ask);
+            orderBook.insertOrder(obe);
+        }
+        catch(const std::exception &e)
+        {
+            std::cout << "MerkelMain::enterAsk - Error in converting string inputs to OBE." << std::endl;
+            std::cout << "   Exception:" << e.what() << std::endl;
+        }
+    }
 }
+
+/**
+ * @brief Generate an Bid to be added to the orderbook.
+ * 
+ * Prompts user for input to generate an OrderBookEntry object which is added to orderbook at the current time.
+ */
 void MerkelMain::makeBid()
 {
-    std::cout << "Make a bid - enter the amount" << std::endl;
+    std::string askStr;
+    
+    std::cout << "Make a bid - enter the amount: product, price, amount. E.g: ETH/BTC,200,0.5" << std::endl;
+
+    std::getline(std::cin, askStr);
+    std::cout << "   You entered: " << askStr << std::endl;
+    std::vector<std::string> tokens = CsvReader::tokenise(askStr,',');
+
+    if(tokens.size() < 3)
+    {
+        std::cout << "MerkelMain::makeBid - Not enough tokens in user input." << std::endl;
+    }
+    else
+    {
+        try
+        {
+            OrderBookEntry obe = CsvReader::stringsToOBE(tokens[1],
+                                                        tokens[2],
+                                                        currentTime,
+                                                        tokens[0],
+                                                        OrderBookType::bid);
+            orderBook.insertOrder(obe);
+        }
+        catch(const std::exception &e)
+        {
+            std::cout << "MerkelMain::makeBid - Error in converting string inputs to OBE." << std::endl;
+            std::cout << "   Exception:" << e.what() << std::endl;
+        }
+    }
 }
 void MerkelMain::printWallet()
 {

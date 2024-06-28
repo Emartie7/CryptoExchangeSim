@@ -46,6 +46,18 @@ OrderBookType OrderBookEntry::stringToObeType(const std::string& s)
     else                return OrderBookType::unknown;
 }
 
+/**
+ * @brief Compares two orderbook entries. 
+ * 
+ * Returns true if the first OBE has an earlier timestamp than the second.
+ * Assumes timestamp values are purely numerical and can be compared in this manner.
+ * @see OrderBook::insertOrder()
+ */
+bool OrderBookEntry::compareByTimestamp(const OrderBookEntry &e1, const OrderBookEntry &e2)
+{
+    return e1._timestamp < e2._timestamp;
+}
+
 void printEntryPrices(std::vector<OrderBookEntry>& entries)
 {
     for(OrderBookEntry& entry : entries)

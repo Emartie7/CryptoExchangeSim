@@ -28,6 +28,7 @@
  ***********************************************/
 #include "OrderBook.h"
 #include <map>
+#include <algorithm>
 /********************************************//**
  *  Method Implementations
  ***********************************************/
@@ -144,4 +145,15 @@ std::string OrderBook::getNextTime(const std::string & timestamp)
 
     if( next_timestamp == "") next_timestamp = getEarliestTime();
     return next_timestamp;
+}
+
+/**
+ * @brief Add an OrderBookEntry to the orderbook.
+ * 
+ * Appends new OBE to orders vector then performs a sort based on simulation timestamp values.
+ */
+void OrderBook::insertOrder(OrderBookEntry &order)
+{
+    orders.push_back(order);
+    std::sort(orders.begin(),orders.end(),OrderBookEntry::compareByTimestamp);
 }
