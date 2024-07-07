@@ -21,6 +21,12 @@
  * 
  * @copyright Copyright (c) 2024
  * 
+ * The MerkelMain class acts as the main engine for the currency exchange simulator.
+ * 
+ * Assumptions, Restrictions and limitations:
+ * 1. Limited to a single input dataset.
+ * 2. Data set must be specified upon initialization.
+ * 
  */
 /********************************************//**
  *  Includes
@@ -42,6 +48,16 @@
 /********************************************//**
  *  Function Implementations
  ***********************************************/
+/**
+ * @brief Constructor for MerkelMain.
+ * 
+ * @param filename Path to csv file containing order data set.
+ */
+MerkelMain::MerkelMain(std::string filename)
+{
+    this->orderBook = OrderBook{filename};
+}
+
 
 /***************************************************************************//**
  * printMenu(void)
@@ -271,7 +287,7 @@ void MerkelMain::processNext()
 
 void MerkelMain::init()
 {
-    loadOrderBook();
+    // loadOrderBook();
     currentTime = orderBook.getEarliestTime();
     int option = 0;
 

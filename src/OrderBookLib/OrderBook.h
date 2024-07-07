@@ -42,6 +42,7 @@
 class OrderBook
 {
     public:
+        OrderBook() = default;
         OrderBook(std::string filename);
         std::vector<std::string> getKnownProducts();
         std::vector<OrderBookEntry> getOrders(OrderBookType type,

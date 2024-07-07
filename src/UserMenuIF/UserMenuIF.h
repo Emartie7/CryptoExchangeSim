@@ -49,7 +49,7 @@
 class MerkelMain
 {
     public:
-        MerkelMain() = default;
+        MerkelMain(std::string filename);
         void init();
     private:
         void loadOrderBook();
@@ -63,7 +63,7 @@ class MerkelMain
         int getUserOption();
         void printMenu();
         std::string currentTime;
-        OrderBook orderBook{"DataSets/OrderBook_Example.csv"};
+        OrderBook orderBook;
 };
 /********************************************//**
  *  Function Prototypes
