@@ -85,7 +85,7 @@ std::vector<OrderBookEntry> CsvReader::readCSV(std::string csvFilename)
         std::cout << "   Invalid line count: " << nErr << std::endl;
         csvFile.close(); 
     }
-    else std::cout << "Error opening file " << csvDataFileName << std::endl;
+    else std::cout << "CsvReader::readCSV - Error opening file " << csvDataFileName << std::endl;
 
     return entries;
 }

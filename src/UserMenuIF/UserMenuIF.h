@@ -41,6 +41,8 @@
 /********************************************//**
  *  Class definitions
  ***********************************************/
+enum class MerkelState:char {WAITING,READY,RUN};
+
 /*! @class MerkelMain
     @brief Class for currency exchange application.
 
@@ -50,7 +52,10 @@ class MerkelMain
 {
     public:
         MerkelMain(std::string filename);
-        void init();
+        void init(bool debug);
+        std::string getCurrentTime();
+        MerkelState getCurrentState();
+        OrderBook getOrders();
     private:
         void loadOrderBook();
         void printHelp();
@@ -62,8 +67,10 @@ class MerkelMain
         void processUserOption(int selection);
         int getUserOption();
         void printMenu();
+        void run();
         std::string currentTime;
         OrderBook orderBook;
+        MerkelState state;
 };
 /********************************************//**
  *  Function Prototypes

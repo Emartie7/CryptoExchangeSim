@@ -55,7 +55,17 @@
  */
 MerkelMain::MerkelMain(std::string filename)
 {
-    this->orderBook = OrderBook{filename};
+    try
+    {
+        this->orderBook = OrderBook{filename};
+        this->state = MerkelState::READY;
+    }
+    catch(const std::exception& e)
+    {
+        this->state = MerkelState::WAITING;
+        std::cout << "MerkelMain - Warning: failed to initialize MerkelMain data set." << std::endl;
+        // throw;
+    }
 }
 
 
@@ -295,13 +305,32 @@ void MerkelMain::processNext()
    }
    currentTime = orderBook.getNextTime(currentTime); 
 }
-
-void MerkelMain::init()
+/**
+ * @brief Public method for viewing current time in simulation.
+ */
+std::string MerkelMain::getCurrentTime()
 {
-    // loadOrderBook();
-    currentTime = orderBook.getEarliestTime();
-    int option = 0;
+    return this->currentTime;
+}
 
+/**
+ * @brief Public method for obtaining a copy of the current orders in simulation.
+ */
+OrderBook MerkelMain::getOrders()
+{
+    return this->orderBook;
+}
+
+/**
+ * @brief Public method for viewing current state of the exchange sim.
+ */
+MerkelState MerkelMain::getCurrentState()
+{
+    return this->state;
+}
+void MerkelMain::run()
+{
+    int option = 0;
     while(true)
     { 
         this->printMenu();
@@ -309,5 +338,21 @@ void MerkelMain::init()
 
         if(option == 7) break; //Exit program
         else if(option > 0) this->processUserOption(option);
+    }
+}
+
+void MerkelMain::init(bool debug)
+{
+    // loadOrderBook();
+    if((MerkelState::READY == this->state))
+    {
+        currentTime = orderBook.getEarliestTime();
+    }
+
+    if((MerkelState::READY == this->state) && (!debug))
+    {
+        this->state = MerkelState::RUN;
+        this->run();
+        this->state = MerkelState::READY;
     }
 }

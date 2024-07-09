@@ -29,6 +29,7 @@
 #include "OrderBook.h"
 #include <map>
 #include <algorithm>
+#include <stdexcept>
 /********************************************//**
  *  Method Implementations
  ***********************************************/
@@ -39,6 +40,10 @@
 OrderBook::OrderBook(std::string filename)
 {
     this->orders = CsvReader::readCSV(filename);
+    if(this->orders.size() == 0)
+    {
+        throw std::runtime_error(std::string("Failed to read data for OrderBook."));
+    }
 }
 
 /**

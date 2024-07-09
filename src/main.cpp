@@ -56,6 +56,6 @@
 int main(void)
 {
     MerkelMain app{FNAME_DATA_MATCH01};
-    app.init();
+    app.init(false);
     return 0;
 }
