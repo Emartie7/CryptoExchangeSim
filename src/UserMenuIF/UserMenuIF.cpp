@@ -282,6 +282,17 @@ void MerkelMain::printWallet()
 void MerkelMain::processNext()
 {
    std::cout << "Going to next time step." << std::endl;
+
+   for(std::string &p : orderBook.getKnownProducts())
+   {
+        std::cout << "Matching bids/asks for : " << p << std::endl;
+        std::vector<OrderBookEntry> sales = orderBook.matchAsksToBids(p,currentTime);
+        std::cout << "Sales: "<< sales.size() << std::endl;
+        for(OrderBookEntry & sale : sales)
+        {
+            std::cout << "   Sale price: " << sale._price << " amount " << sale._amount << std::endl;
+        }
+   }
    currentTime = orderBook.getNextTime(currentTime); 
 }
 

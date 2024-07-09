@@ -157,3 +157,69 @@ void OrderBook::insertOrder(OrderBookEntry &order)
     orders.push_back(order);
     std::sort(orders.begin(),orders.end(),OrderBookEntry::compareByTimestamp);
 }
+
+/**
+ * @brief Match bid OBEs to ask OBEs for a specified timeframe.
+ * 
+ * @param product Product to match
+ * @param timestamp Timeframe in which to perform the matching.
+ * 
+ * Limitations, assumptions and restrictions:
+ * 1. Lowest priced ask is processed first.
+ * 2. The highest bid that matches the current ask is given priority over any lower bids that also match.
+ * 3. Sales will be processed at the ask price, even if the matching bid is higher.
+ * 4. Partial salse are allowed, and will sell the largest possible amount.
+ * 5. Partially matched bids or asks can be re-processed and matched against further bids or asks.
+ */
+std::vector<OrderBookEntry> OrderBook::matchAsksToBids(std::string product, std::string timestamp)
+{
+    std::vector<OrderBookEntry> asks = getOrders(OrderBookType::ask,product,timestamp);
+    std::vector<OrderBookEntry> bids = getOrders(OrderBookType::bid,product,timestamp);
+    std::vector<OrderBookEntry> sales;
+
+    for(OrderBookEntry cAsk:asks)
+    {
+        for(OrderBookEntry cBid:bids)
+        {
+            if(cBid._price >= cAsk._price)
+            {
+                OrderBookEntry sale = OrderBookEntry{timestamp,
+                                                     product,
+                                                     OrderBookType::ask,
+                                                     0.0,
+                                                     0.0};
+                sale._price = cAsk._price;
+
+                //Both bid and ask are completely cleared.
+                if(cBid._amount == cAsk._amount)
+                {
+                    sale._amount = cAsk._amount;
+                    sales.push_back(sale);
+
+                    cBid._amount = 0; //This bid can do no more work
+                    break;
+                }
+                //Bid completely clears ask, some bid remains.
+                if(cBid._amount > cAsk._amount)
+                {
+                    sale._amount = cAsk._amount;
+                    sales.push_back(sale);
+                    cBid._amount = cBid._amount - sale._amount; //Update bid amount for future possible sales.
+                    break;
+                }
+                //Bid partially clears ask.
+                if(cBid._amount < cAsk._amount)
+                {
+                    sale._amount = cBid._amount;
+                    sales.push_back(sale);
+                    cAsk._amount = cAsk._amount - cBid._amount; //Update ask amount for future possible sales.
+                    cBid._amount = 0; //This bid can do no more work
+                    continue;
+                }
+            }//end if(cBid.price >= ask.price)
+
+        } //end for(OrderBookEntry cBid:bids)
+
+    } //end for(OrderBookEntry cAsk:asks)
+    return sales;
+}

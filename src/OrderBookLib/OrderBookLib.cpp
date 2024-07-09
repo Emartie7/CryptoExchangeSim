@@ -62,3 +62,23 @@ bool OrderBookEntry::compareByTimestamp(const OrderBookEntry &e1, const OrderBoo
 {
     return e1._timestamp < e2._timestamp;
 }
+
+/**
+ * @brief Compares two orderbook entries. 
+ * 
+ * Returns true if the first OBE has a lower price than the second.
+ */
+bool OrderBookEntry::compareByPriceAsc(OrderBookEntry & e1,OrderBookEntry & e2)
+{
+    return e1._price < e2._price;
+}
+
+/**
+ * @brief Compares two orderbook entries. 
+ * 
+ * Returns true if the first OBE has a higher price than the second.
+ */
+bool OrderBookEntry::compareByPriceDesc(OrderBookEntry & e1,OrderBookEntry & e2)
+{
+    return e1._price > e2._price;
+}

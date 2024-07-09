@@ -33,6 +33,7 @@
  *  Defines
  ***********************************************/
 #define FNAME_DATA_NOMINAL "DataSets/OrderBook_Example.csv"
+#define FNAME_DATA_MATCH01 "DataSets/MatchTest_01.csv"
 /********************************************//**
  *  Local Params
  ***********************************************/
@@ -54,7 +55,7 @@
  ******************************************************************************/
 int main(void)
 {
-    MerkelMain app{FNAME_DATA_NOMINAL};
+    MerkelMain app{FNAME_DATA_MATCH01};
     app.init();
     return 0;
 }
