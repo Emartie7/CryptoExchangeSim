@@ -33,5 +33,4 @@
 
 #Ignore cmake build output
 build/
-DataSets/
 .vscode/

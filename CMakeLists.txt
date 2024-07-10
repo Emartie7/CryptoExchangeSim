@@ -20,7 +20,8 @@ if(BUILD_GTEST)
     FetchContent_MakeAvailable(GoogleTest)
     enable_testing()
     #No "user-defined" main function, use GTest main.
-    add_executable(${PROJECT_NAME} test/MyTest.cpp 
+    add_executable(${PROJECT_NAME} #test/MyTest.cpp 
+                                   test/ObeMatch_Test.cpp
                                    src/UserMenuIF/UserMenuIF.cpp 
                                    src/OrderBookLib/OrderBookLib.cpp 
                                    src/CsvReader/CsvReader.cpp
