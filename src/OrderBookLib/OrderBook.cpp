@@ -182,9 +182,12 @@ std::vector<OrderBookEntry> OrderBook::matchAsksToBids(std::string product, std:
     std::vector<OrderBookEntry> bids = getOrders(OrderBookType::bid,product,timestamp);
     std::vector<OrderBookEntry> sales;
 
-    for(OrderBookEntry cAsk:asks)
+    std::sort(asks.begin(),asks.end(),OrderBookEntry::compareByPriceAsc);
+    std::sort(bids.begin(),bids.end(),OrderBookEntry::compareByPriceDesc);
+
+    for(OrderBookEntry & cAsk:asks)
     {
-        for(OrderBookEntry cBid:bids)
+        for(OrderBookEntry & cBid:bids)
         {
             if(cBid._price >= cAsk._price)
             {

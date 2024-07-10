@@ -58,7 +58,7 @@ std::vector<OrderBookEntry> CsvReader::readCSV(std::string csvFilename)
 
     if(csvFile.is_open())
     {
-        std::cout << "Opened File: " << csvDataFileName << std::endl;
+        // std::cout << "Opened File: " << csvDataFileName << std::endl;
         while(std::getline(csvFile,line))
         {
             tokens = tokenise(line,',');
@@ -80,9 +80,9 @@ std::vector<OrderBookEntry> CsvReader::readCSV(std::string csvFilename)
                 std::cerr << e.what() << '\n';
             }
         }       
-        std::cout << std::endl << std::endl << "Summary of lines processed: " << std::endl;
-        std::cout << "   Tokenised line count: " << entries.size() << std::endl;
-        std::cout << "   Invalid line count: " << nErr << std::endl;
+        // std::cout << std::endl << std::endl << "Summary of lines processed: " << std::endl;
+        // std::cout << "   Tokenised line count: " << entries.size() << std::endl;
+        // std::cout << "   Invalid line count: " << nErr << std::endl;
         csvFile.close(); 
     }
     else std::cout << "CsvReader::readCSV - Error opening file " << csvDataFileName << std::endl;
