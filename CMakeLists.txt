@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-if(BUILD_TEST)
+if(BUILD_GTEST)
     set(BinName "MerkleRex_Test")
 else()
     set(BinName "MerkleRex")

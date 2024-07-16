@@ -18,7 +18,7 @@ cmake 3.29.3
 
 3. Run unit tests:  
       In same location as (1):  
-         > cmake -S . -B build -DBUILD_GTEST=ON  
+         > cmake -S . -B build -DBUILD_GTEST=ON 
+         > cmake --build build   
          > ./build/MerkleRex_Test  
-
-Note: After building the test suite, will need to re-run Cmake in order to re-build the main application (instead of test binary).  
+         
