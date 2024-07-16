@@ -22,10 +22,12 @@ if(BUILD_GTEST)
     #No "user-defined" main function, use GTest main.
     add_executable(${PROJECT_NAME} #test/MyTest.cpp 
                                    test/ObeMatch_Test.cpp
+                                   test/WalletTest.cpp
                                    src/UserMenuIF/UserMenuIF.cpp 
                                    src/OrderBookLib/OrderBookLib.cpp 
                                    src/CsvReader/CsvReader.cpp
-                                   src/OrderBookLib/OrderBook.cpp) 
+                                   src/OrderBookLib/OrderBook.cpp
+                                   src/Wallet/Wallet.cpp) 
     target_link_libraries(${PROJECT_NAME} GTest::gtest_main GTest::gmock)
     gtest_discover_tests(${PROJECT_NAME})
 else()
@@ -34,11 +36,13 @@ else()
                                    src/UserMenuIF/UserMenuIF.cpp 
                                    src/OrderBookLib/OrderBookLib.cpp 
                                    src/CsvReader/CsvReader.cpp
-                                   src/OrderBookLib/OrderBook.cpp) 
+                                   src/OrderBookLib/OrderBook.cpp
+                                   src/Wallet/Wallet.cpp) 
 endif()
 target_include_directories(${PROJECT_NAME} PUBLIC 
                            ${CMAKE_CURRENT_SOURCE_DIR}/src/UserMenuIF
                            ${CMAKE_CURRENT_SOURCE_DIR}/src/OrderBookLib
-                           ${CMAKE_CURRENT_SOURCE_DIR}/src/CsvReader)
+                           ${CMAKE_CURRENT_SOURCE_DIR}/src/CsvReader
+                           ${CMAKE_CURRENT_SOURCE_DIR}/src/Wallet)
 
 
