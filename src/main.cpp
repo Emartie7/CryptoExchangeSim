@@ -28,7 +28,8 @@
  *  Includes
  ***********************************************/
 #include "UserMenuIF.h"
-
+#include <iostream>
+#include "Wallet.h"
 /********************************************//**
  *  Defines
  ***********************************************/
@@ -55,7 +56,7 @@
  ******************************************************************************/
 int main(void)
 {
-    MerkelMain app{FNAME_DATA_MATCH01};
+    MerkelMain app{FNAME_DATA_NOMINAL};
     app.init(false);
     return 0;
 }

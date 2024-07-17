@@ -29,6 +29,7 @@
 #include <iostream>
 #include <string>
 #include "Wallet.h"
+#include "CsvReader.h"
 #include <stdexcept>
 
 /**
@@ -48,12 +49,14 @@ void Wallet::insertCurrency(std::string type, double amount)
 {
     if(amount >= 0)
     {
+        std::cout << "Wallet::insertCurrency - Adding " << amount << " of " << type << " to wallet." << std::endl;
         if(0 != this->currencies.count(type))
         {
             this->currencies[type] += 0;
         }
         else
         {
+            std::cout << "   Wallet::insertCurrency - Adding new currency to wallet" << std::endl;
             this->currencies[type] = amount;
         }
     }
@@ -130,4 +133,48 @@ std::ostream & operator << (std::ostream &os, Wallet & wallet)
 {
     os << wallet.toString();
     return os;
+}
+
+/**
+ * @brief Determines whether wallet can satisfy the transaction described by an OBE.
+ * 
+ * An ask of product type "ETH/BTC" means the user is selling ETH for BTC - has first, wants second
+ * A bid of product  type "ETH/BTC" means the user is buying ETH for BTC - has second, wants first
+ * @param order OBE describing the ask/sale.
+ * @return TRUE transaction can be performed with the available funds in wallet.
+ *         FALSE if not.
+ */
+bool Wallet::canFulfillOrder(const OrderBookEntry & order)
+{
+    //Split a string "ETH/BTC" into a vector ["ETH","BTC"]
+    std::vector <std::string> products = CsvReader::tokenise(order._product,'/');
+
+    //This is the product user has and needs to verify.
+    std::string tradeProd;
+
+    //Transaction amount
+    double amount = 0.0f; 
+
+    if(OrderBookType::ask == order._OrderType)
+    {
+        amount = order._amount;
+        tradeProd = products[0];
+    }
+    else if(OrderBookType::bid == order._OrderType)
+    {
+        amount = order._amount * order._price; //Calculate how much of the product we need.
+        tradeProd = products[1];
+    }
+    else
+    {
+        std::cout << "Wallet::canFulfillOrder - Warning: unsupported OBE order type." << std::endl;
+        return false;
+    }
+    std::cout << "Wallet::canFulfillOrder - checking wallet for " << amount << " " << tradeProd << std::endl;
+    return this->containsCurrency(tradeProd,amount);
+}
+
+int Wallet::getWalletLen()
+{
+    return this->currencies.size();
 }

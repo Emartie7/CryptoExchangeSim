@@ -30,6 +30,7 @@
 #include <vector>
 #include "OrderBookLib.h"
 #include "OrderBook.h"
+#include "Wallet.h"
 /********************************************//**
  *  Defines
  ***********************************************/
@@ -71,6 +72,7 @@ class MerkelMain
         std::string currentTime;
         OrderBook orderBook;
         MerkelState state;
+        Wallet wallet;
 };
 /********************************************//**
  *  Function Prototypes

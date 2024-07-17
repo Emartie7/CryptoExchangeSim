@@ -28,7 +28,7 @@
  ***********************************************/
 #include <string>
 #include <map>
-
+#include <OrderBookLib.h>
 /*! @class Wallet
     @brief Class for currency exchange wallet.
 
@@ -42,7 +42,9 @@ class Wallet
         bool removeCurrency(std::string type, double amount);
         bool containsCurrency(std::string type,double amount);
         std::string toString();
+        bool canFulfillOrder(const OrderBookEntry & order);
         friend std::ostream & operator<<(std::ostream & os,Wallet & wallet);
+        int getWalletLen();
     private:
         std::map<std::string, double> currencies;
 };

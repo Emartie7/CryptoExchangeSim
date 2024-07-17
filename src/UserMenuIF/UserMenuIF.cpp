@@ -238,7 +238,16 @@ void MerkelMain::enterAsk()
                                                         currentTime,
                                                         tokens[0],
                                                         OrderBookType::ask);
-            orderBook.insertOrder(obe);
+            if(this->wallet.canFulfillOrder(obe))
+            {
+                std::cout << "   MerkelMain::enterAsk - Wallet looks good." << std::endl;
+                orderBook.insertOrder(obe);
+            }
+            else
+            {
+                std::cout << "   MerkelMain::enterAsk - Insufficient funds to process order." << std::endl;
+            }
+            
         }
         catch(const std::exception &e)
         {
@@ -276,7 +285,15 @@ void MerkelMain::makeBid()
                                                         currentTime,
                                                         tokens[0],
                                                         OrderBookType::bid);
-            orderBook.insertOrder(obe);
+            if(this->wallet.canFulfillOrder(obe))
+            {
+                std::cout << "   MerkelMain::makeBid - Wallet looks good." << std::endl;
+                orderBook.insertOrder(obe);
+            }
+            else
+            {
+                std::cout << "   MerkelMain::makeBid - Insufficient funds to process order." << std::endl;
+            }
         }
         catch(const std::exception &e)
         {
@@ -287,7 +304,9 @@ void MerkelMain::makeBid()
 }
 void MerkelMain::printWallet()
 {
-    std::cout << "Your wallet has: " << std::endl;
+    std::cout << "Your wallet has " << this->wallet.getWalletLen() << " currencies" << std::endl;
+    std::cout << this->wallet << std::endl;
+    // this->wallet.toString();
 }
 void MerkelMain::processNext()
 {
@@ -343,14 +362,17 @@ void MerkelMain::run()
 
 void MerkelMain::init(bool debug)
 {
-    // loadOrderBook();
+    std::string initProd = "BTC";
+    double initAmt       = 10.0f;
+    this->wallet.insertCurrency("BTC",10);
     if((MerkelState::READY == this->state))
     {
         currentTime = orderBook.getEarliestTime();
     }
-
     if((MerkelState::READY == this->state) && (!debug))
     {
+        std::cout << "Initializing MerkelMain . . ." << std::endl;
+        
         this->state = MerkelState::RUN;
         this->run();
         this->state = MerkelState::READY;
