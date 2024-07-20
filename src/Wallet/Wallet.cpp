@@ -49,14 +49,14 @@ void Wallet::insertCurrency(std::string type, double amount)
 {
     if(amount >= 0)
     {
-        std::cout << "Wallet::insertCurrency - Adding " << amount << " of " << type << " to wallet." << std::endl;
+        // std::cout << "Wallet::insertCurrency - Adding " << amount << " of " << type << " to wallet." << std::endl;
         if(0 != this->currencies.count(type))
         {
             this->currencies[type] += 0;
         }
         else
         {
-            std::cout << "   Wallet::insertCurrency - Adding new currency to wallet" << std::endl;
+            // std::cout << "   Wallet::insertCurrency - Adding new currency to wallet" << std::endl;
             this->currencies[type] = amount;
         }
     }
@@ -140,6 +140,7 @@ std::ostream & operator << (std::ostream &os, Wallet & wallet)
  * 
  * An ask of product type "ETH/BTC" means the user is selling ETH for BTC - has first, wants second
  * A bid of product  type "ETH/BTC" means the user is buying ETH for BTC - has second, wants first
+ * Only intended to operate on "bid" or "sale" OBE types.
  * @param order OBE describing the ask/sale.
  * @return TRUE transaction can be performed with the available funds in wallet.
  *         FALSE if not.
@@ -177,4 +178,34 @@ bool Wallet::canFulfillOrder(const OrderBookEntry & order)
 int Wallet::getWalletLen()
 {
     return this->currencies.size();
+}
+
+void Wallet::processSale(OrderBookEntry & sale)
+{
+    std::vector<std::string> currs = CsvReader::tokenise(sale._product,'/');
+    if(OrderBookType::asksale == sale._OrderType)
+    {
+        double outGoingAmount = sale._amount;
+        double incomingAmount = sale._amount * sale._price;
+        std::string outGoingCurrency = currs[0];
+        std::string incomingCurrency = currs[1];
+
+        this->currencies[incomingCurrency] += incomingAmount;
+        this->currencies[outGoingCurrency] -= outGoingAmount;
+    }
+    else if(OrderBookType::bidsale == sale._OrderType)
+    {
+        double outGoingAmount = sale._amount * sale._price;
+        double incomingAmount = sale._amount;
+        std::string outGoingCurrency = currs[1];
+        std::string incomingCurrency = currs[0];
+
+        this->currencies[incomingCurrency] += incomingAmount;
+        this->currencies[outGoingCurrency] -= outGoingAmount;
+    }
+    else
+    {
+        std::cout << "Wallet::processSale - ERROR: attempting to process unsupported sale type." << std::endl;
+        throw std::runtime_error(std::string("Wallet::processSale - attempting to process unsupported sale type."));
+    }
 }

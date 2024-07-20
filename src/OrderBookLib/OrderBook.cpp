@@ -189,6 +189,8 @@ std::vector<OrderBookEntry> OrderBook::matchAsksToBids(std::string product, std:
     {
         for(OrderBookEntry & cBid:bids)
         {
+            if(0 == cBid._amount) continue; //Skip bids that have been cleared.
+
             if(cBid._price >= cAsk._price)
             {
                 OrderBookEntry sale = OrderBookEntry{timestamp,
@@ -197,6 +199,16 @@ std::vector<OrderBookEntry> OrderBook::matchAsksToBids(std::string product, std:
                                                      0.0,
                                                      0.0};
                 sale._price = cAsk._price;
+                if("simuser" == cBid.username)
+                {
+                    sale.username   = "simuser";
+                    sale._OrderType = OrderBookType::bidsale; 
+                }
+                else if("simuser" == cAsk.username)
+                {
+                    sale.username   = "simuser";
+                    sale._OrderType = OrderBookType::asksale; 
+                }
 
                 //Both bid and ask are completely cleared.
                 if(cBid._amount == cAsk._amount)

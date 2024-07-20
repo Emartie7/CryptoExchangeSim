@@ -149,8 +149,6 @@ int MerkelMain::getUserOption()
  ******************************************************************************/
 void MerkelMain::processUserOption(int selection)
 {
-    // void (*optFunc) () = mFuncs[selection];
-    // optFunc();
     switch(selection)
     {
         case 1:
@@ -225,6 +223,7 @@ void MerkelMain::enterAsk()
     std::cout << "   You entered: " << askStr << std::endl;
     std::vector<std::string> tokens = CsvReader::tokenise(askStr,',');
 
+    //TODO: Add check for an excess # of tokens
     if(tokens.size() < 3)
     {
         std::cout << "MerkelMain::enterAsk - Not enough tokens in user input." << std::endl;
@@ -238,6 +237,8 @@ void MerkelMain::enterAsk()
                                                         currentTime,
                                                         tokens[0],
                                                         OrderBookType::ask);
+            obe.username = "simuser";
+
             if(this->wallet.canFulfillOrder(obe))
             {
                 std::cout << "   MerkelMain::enterAsk - Wallet looks good." << std::endl;
@@ -271,7 +272,8 @@ void MerkelMain::makeBid()
     std::getline(std::cin, askStr);
     std::cout << "   You entered: " << askStr << std::endl;
     std::vector<std::string> tokens = CsvReader::tokenise(askStr,',');
-
+    
+    //TODO: Add check for an excess # of tokens
     if(tokens.size() < 3)
     {
         std::cout << "MerkelMain::makeBid - Not enough tokens in user input." << std::endl;
@@ -285,6 +287,7 @@ void MerkelMain::makeBid()
                                                         currentTime,
                                                         tokens[0],
                                                         OrderBookType::bid);
+            obe.username = "simuser";
             if(this->wallet.canFulfillOrder(obe))
             {
                 std::cout << "   MerkelMain::makeBid - Wallet looks good." << std::endl;
@@ -320,6 +323,12 @@ void MerkelMain::processNext()
         for(OrderBookEntry & sale : sales)
         {
             std::cout << "   Sale price: " << sale._price << " amount " << sale._amount << std::endl;
+            //Verification that user wallet can support sale is performed when bid/ask is added 
+            //to orderbook. This could be changed . . .
+            if(("simuser" == sale.username))
+            {
+                this->wallet.processSale(sale);
+            }
         }
    }
    currentTime = orderBook.getNextTime(currentTime); 

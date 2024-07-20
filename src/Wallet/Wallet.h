@@ -44,6 +44,7 @@ class Wallet
         std::string toString();
         bool canFulfillOrder(const OrderBookEntry & order);
         friend std::ostream & operator<<(std::ostream & os,Wallet & wallet);
+        void processSale(OrderBookEntry & sale);
         int getWalletLen();
     private:
         std::map<std::string, double> currencies;

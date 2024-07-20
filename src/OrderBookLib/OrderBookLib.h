@@ -32,7 +32,7 @@
 /********************************************//**
  *  Class Definitions
  ***********************************************/
-enum class OrderBookType:char {bid,ask,unknown};
+enum class OrderBookType:char {bid,ask,unknown,asksale,bidsale};
 
 /*! @class OrderBookEntry
     @brief Class for an entry of order book data.
@@ -45,6 +45,7 @@ class OrderBookEntry
         OrderBookType _OrderType;
         double _price;
         double _amount;
+        std::string username = "dataset";
         OrderBookEntry(std::string timestamp,std::string product,OrderBookType OrderType,double price, double amount);
         static OrderBookType stringToObeType(const std::string& s);
         static bool compareByTimestamp(const OrderBookEntry &e1, const OrderBookEntry &e2);

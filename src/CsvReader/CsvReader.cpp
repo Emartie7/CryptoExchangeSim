@@ -65,7 +65,6 @@ std::vector<OrderBookEntry> CsvReader::readCSV(std::string csvFilename)
             if(ORDERBOOK_ENT_NTOKENS != tokens.size())
 
             {
-                std::cout << "CsvReader::readCSV - Bad line, not enough tokens." << std::endl;
                 nErr++;
                 continue;
             }
