@@ -128,6 +128,12 @@ std::string Wallet::toString()
     return s;
 }
 
+/**
+ * @brief Allow overloading to facilitate printing wallet contents to console.
+ * 
+ * @param os Output stream
+ * @param wallet Wallet object to be printed.
+ */
 std::ostream & operator << (std::ostream &os, Wallet & wallet)
 
 {
@@ -175,11 +181,29 @@ bool Wallet::canFulfillOrder(const OrderBookEntry & order)
     return this->containsCurrency(tradeProd,amount);
 }
 
+/**
+ * @brief Get user wallet length (i.e. the # of currencies user has).
+ * 
+ * @return value of wallet length
+ */
 int Wallet::getWalletLen()
 {
     return this->currencies.size();
 }
 
+/**
+ * @brief Executes sale against user wallet.
+ * 
+ * Inspects the sale desribed by the input argument and determines the
+ * type of transaction to be performed and which currencies are involved.
+ * Updates user wallet to reflect the transaction that is performed.
+ * Limitations, assumptions and restrictions:
+ * 1. OBE type must be either "askSale" or "bidSale"
+ * 2. Not currently intended to process non-user generated sales.
+ * 
+ * TODO: Should be updated to verify wallet can support sale.
+ * @return string containing the earliest found timestamp. 
+ */
 void Wallet::processSale(OrderBookEntry & sale)
 {
     std::vector<std::string> currs = CsvReader::tokenise(sale._product,'/');

@@ -58,7 +58,6 @@ class MerkelMain
         MerkelState getCurrentState();
         OrderBook getOrders();
     private:
-        void loadOrderBook();
         void printHelp();
         void printExchangeStats();
         void enterAsk();

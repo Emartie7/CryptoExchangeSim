@@ -40,7 +40,7 @@
 /********************************************//**
  *  Defines
  ***********************************************/
-
+#define USER_BIDASK_NTOKENS 3
 /********************************************//**
  *  Local Params
  ***********************************************/
@@ -107,7 +107,7 @@ void MerkelMain::printMenu()
  * 1. Only integer-type inputs are valid.
  * 2. Valid range integer value is 1-7
  *
- * @param none Nothing yet
+ * @return User selection
  ******************************************************************************/
 int MerkelMain::getUserOption()
 {
@@ -176,15 +176,17 @@ void MerkelMain::processUserOption(int selection)
     std::cout << std::endl;
 }
 
-void MerkelMain::loadOrderBook()
-{
-    // orders = CsvReader::readCSV("DataSets/OrderBook_Example.csv");
-}
-
+/**
+ * @brief Prints exchange help message.
+ */
 void MerkelMain::printHelp()
 {
     std::cout << "Help is on the way" << std::endl;
 }
+
+/**
+ * @brief Prints summary information about the currencies and orders available on the exchange.
+ */
 void MerkelMain::printExchangeStats()
 {
     double max,min = 0;
@@ -208,6 +210,7 @@ void MerkelMain::printExchangeStats()
                   << "   Spread   : " << orderBook.getSpread(entriesBids) << std::endl << std::endl;
     }
 }
+
 /**
  * @brief Generate an Ask to be added to the orderbook.
  * 
@@ -223,8 +226,7 @@ void MerkelMain::enterAsk()
     std::cout << "   You entered: " << askStr << std::endl;
     std::vector<std::string> tokens = CsvReader::tokenise(askStr,',');
 
-    //TODO: Add check for an excess # of tokens
-    if(tokens.size() < 3)
+    if(tokens.size() != USER_BIDASK_NTOKENS)
     {
         std::cout << "MerkelMain::enterAsk - Not enough tokens in user input." << std::endl;
     }
@@ -273,10 +275,9 @@ void MerkelMain::makeBid()
     std::cout << "   You entered: " << askStr << std::endl;
     std::vector<std::string> tokens = CsvReader::tokenise(askStr,',');
     
-    //TODO: Add check for an excess # of tokens
-    if(tokens.size() < 3)
+    if(tokens.size() != USER_BIDASK_NTOKENS)
     {
-        std::cout << "MerkelMain::makeBid - Not enough tokens in user input." << std::endl;
+        std::cout << "MerkelMain::makeBid - WARNING: User input contains incorrect number of tokens." << std::endl;
     }
     else
     {
@@ -305,11 +306,14 @@ void MerkelMain::makeBid()
         }
     }
 }
+
+/**
+ * @brief Prints contents of wallet to console.
+ */
 void MerkelMain::printWallet()
 {
     std::cout << "Your wallet has " << this->wallet.getWalletLen() << " currencies" << std::endl;
     std::cout << this->wallet << std::endl;
-    // this->wallet.toString();
 }
 void MerkelMain::processNext()
 {
@@ -356,6 +360,10 @@ MerkelState MerkelMain::getCurrentState()
 {
     return this->state;
 }
+
+/**
+ * @brief Executes the main loop for the MerkelMain exchange sim.
+ */
 void MerkelMain::run()
 {
     int option = 0;
@@ -369,6 +377,20 @@ void MerkelMain::run()
     }
 }
 
+/**
+ * @brief Initialize and run MerkelMain exchange simulator.
+ * 
+ * Verifies that orderbook data has been properly loaded. 
+ * Adds an initial amount of currency to the users wallet to 
+ * allow trading.
+ * 
+ * Allows user to specify whether application should be started in 
+ * "debug" mode, which will initialize application class and underlying
+ * wallet, but NOT enter the main loop (i.e. user input will not be 
+ * acepted from terminal).
+ * 
+ * @param debug Boolean flag to indicate whether application should run in debug mode.
+ */
 void MerkelMain::init(bool debug)
 {
     std::string initProd = "BTC";

@@ -33,6 +33,9 @@
 /********************************************//**
  *  Class Prototypes
  ***********************************************/
+/*! @class CsvReader
+    @brief Class for reading OrderBookEntry objects from CSV files.
+*/
 class CsvReader
 {
     public:

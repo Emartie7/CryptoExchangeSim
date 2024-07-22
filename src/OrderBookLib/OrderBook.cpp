@@ -125,6 +125,14 @@ double OrderBook::getSpread(std::vector<OrderBookEntry>& OrdersSub)
     return spread;
 }
 
+/**
+ * @brief Gets the earliest timestamp associated with an order in the current orderbook.
+ * 
+ * Assumes timestamps are strings with purely numerical values. This is so that the timestamps
+ * may be compared.
+ * 
+ * @return string containing the earliest found timestamp. 
+ */
 std::string OrderBook::getEarliestTime()
 {
     std::string first_timestamp = this->orders[0]._timestamp; //Get first timestamp in entry list
@@ -136,6 +144,14 @@ std::string OrderBook::getEarliestTime()
     return first_timestamp;
 }
 
+/**
+ * @brief Gets the next timestamp for the simulation.
+ * 
+ * Assumes timestamps are strings with purely numerical values. This is so that the timestamps
+ * may be compared.
+ * 
+ * @return string containing the next timestamp in the orderbook. 
+ */
 std::string OrderBook::getNextTime(const std::string & timestamp)
 {
     std::string next_timestamp = "";

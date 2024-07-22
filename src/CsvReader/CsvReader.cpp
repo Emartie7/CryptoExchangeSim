@@ -38,11 +38,25 @@
 /********************************************//**
  *  Class Implementations
  ***********************************************/
+/**
+ * @brief CSV reader constructor.
+ */
 CsvReader::CsvReader()
 {
 
 }
 
+/**
+ * @brief Reads a CSV file containing orderbook entry data into a vector.
+ * 
+ * Uses an input file stream to read a CSV file. Each line is tokenised into
+ * orderbook entry objects. If the line does not contain the required amount of tokens
+ * as specified by ORDERBOOK_ENT_NTOKENS, the line is skipped.
+ * 
+ * @see OrderBookEntry class for the expected data and its format.
+ * @param csvFilename path to CSV file to be used as input.
+ * @return A vector of orderbook entry objects read in from file.
+ */
 std::vector<OrderBookEntry> CsvReader::readCSV(std::string csvFilename)
 {
     std::vector<OrderBookEntry> entries;
@@ -89,6 +103,15 @@ std::vector<OrderBookEntry> CsvReader::readCSV(std::string csvFilename)
     return entries;
 }
 
+/**
+ * @brief Tokenises input string into sub-components as separated by the input char.
+ * 
+ * Slices input string into components, delimited by the input 'separator'. 
+ * 
+ * @param lineIn String to be tokenised
+ * @param separator Delimiter for string slicing operations.
+ * @return A vector containing the sliced componenets of the input string.
+ */
 std::vector<std::string> CsvReader::tokenise(std::string lineIn, char separator)
 {
     std::vector<std::string> tokens;
