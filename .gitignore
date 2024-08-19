@@ -34,3 +34,5 @@
 #Ignore cmake build output
 build/
 .vscode/
+doc/html/
+doc/latex
