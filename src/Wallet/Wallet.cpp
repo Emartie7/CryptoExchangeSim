@@ -26,11 +26,13 @@
 /********************************************//**
  *  Includes
  ***********************************************/
-#include <iostream>
-#include <string>
 #include "Wallet.h"
 #include "CsvReader.h"
+/** @cond STDINCLUDES */
 #include <stdexcept>
+#include <iostream>
+#include <string>
+/** @endcond */
 
 /**
  * @brief Constructor for Wallet class.

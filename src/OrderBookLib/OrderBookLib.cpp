@@ -26,8 +26,9 @@
  *  Includes
  ***********************************************/
 #include "OrderBookLib.h"
-#include "iostream"
-
+/** @cond STDINCLUDES */
+#include <iostream>
+/** @endcond */
 OrderBookEntry::OrderBookEntry(std::string timestamp,std::string product,OrderBookType OrderType,double price, double amount)
 : _timestamp(timestamp),
   _product(product),

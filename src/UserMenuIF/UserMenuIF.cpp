@@ -13,7 +13,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 
 /**
- * @file UserMenuIF.h
+ * @file UserMenuIF.cpp
  * @author Edward Martinez
  * @brief Source file for processing user selections made in the MerkleRex menu.
  * @version 0.1
@@ -31,12 +31,14 @@
 /********************************************//**
  *  Includes
  ***********************************************/
+#include "UserMenuIF.h"
+#include "CsvReader.h"
+/** @cond STDINCLUDES */
 #include <iostream>
 #include <map>
 #include <string>
 #include <sstream>
-#include "UserMenuIF.h"
-#include "CsvReader.h"
+/** @endcond */
 /********************************************//**
  *  Defines
  ***********************************************/

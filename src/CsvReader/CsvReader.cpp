@@ -13,7 +13,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 
 /**
- * @file CsvReader.h
+ * @file CsvReader.cpp
  * @author Edward Martinez
  * @brief Source code for reading data sets from CSV files.
  * @version 0.1
@@ -27,9 +27,11 @@
  *  Includes
  ***********************************************/
 #include "CsvReader.h"
+/** @cond */
 #include <iostream>
 #include <fstream>
 #include <vector>
+/** @endcond */
 /********************************************//**
  *  Defines
  ***********************************************/

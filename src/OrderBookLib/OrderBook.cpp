@@ -27,9 +27,11 @@
  *  Includes
  ***********************************************/
 #include "OrderBook.h"
+/** @cond STDINCLUDES*/
 #include <map>
 #include <algorithm>
 #include <stdexcept>
+/** @cond */
 /********************************************//**
  *  Method Implementations
  ***********************************************/

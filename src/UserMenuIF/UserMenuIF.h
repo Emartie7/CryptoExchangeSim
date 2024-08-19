@@ -27,10 +27,12 @@
  ***********************************************/
 #pragma once
 
-#include <vector>
 #include "OrderBookLib.h"
 #include "OrderBook.h"
 #include "Wallet.h"
+/** @cond STDINCLUDES */
+#include <vector>
+/** @endcond */
 /********************************************//**
  *  Defines
  ***********************************************/

@@ -28,8 +28,10 @@
  *  Includes
  ***********************************************/
 #include "../OrderBookLib/OrderBookLib.h"
+/** @cond */
 #include <vector>
 #include <string>
+/** @endcond */
 /********************************************//**
  *  Class Prototypes
  ***********************************************/

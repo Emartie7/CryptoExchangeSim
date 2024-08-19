@@ -28,9 +28,10 @@
  ***********************************************/
 #include "../OrderBookLib/OrderBookLib.h"
 #include "../CsvReader/CsvReader.h"
+/** @cond STDINCLUDES */
 #include <string>
 #include <vector>
-
+/** @endcond */
 /********************************************//**
  *  Class Definitions
  ***********************************************/

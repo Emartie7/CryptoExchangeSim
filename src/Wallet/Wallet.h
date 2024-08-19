@@ -26,9 +26,15 @@
 /********************************************//**
  *  Includes
  ***********************************************/
+/** @cond STDINCLUDES */
 #include <string>
 #include <map>
 #include <OrderBookLib.h>
+/** @endcond */
+
+/********************************************//**
+ *  Class Definitions
+ ***********************************************/
 /*! @class Wallet
     @brief Class for currency exchange wallet.
 
