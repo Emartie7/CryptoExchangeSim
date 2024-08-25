@@ -27,7 +27,6 @@
  ***********************************************/
 #pragma once
 
-#include "OrderBookLib.h"
 #include "OrderBook.h"
 #include "Wallet.h"
 /** @cond STDINCLUDES */

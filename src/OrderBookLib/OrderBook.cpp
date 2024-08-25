@@ -27,6 +27,7 @@
  *  Includes
  ***********************************************/
 #include "OrderBook.h"
+#include "../CsvReader/CsvReader.h"
 /** @cond STDINCLUDES*/
 #include <map>
 #include <algorithm>

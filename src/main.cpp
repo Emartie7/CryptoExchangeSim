@@ -28,7 +28,6 @@
  *  Includes
  ***********************************************/
 #include "UserMenuIF.h"
-#include "Wallet.h"
 /** @cond STDINCLUDES */
 #include <iostream>
 /** @endcond */
