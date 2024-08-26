@@ -1,6 +1,0 @@
-<map id="CsvReader::tokenise" name="CsvReader::tokenise">
-<area shape="rect" id="node1" title="Tokenises input string into sub&#45;components as separated by the input char." alt="" coords="219,56,373,83"/>
-<area shape="rect" id="node2" href="$classWallet.html#aa1ee3fb7b2442b560f87cfa97df22220" title="Determines whether wallet can satisfy the transaction described by an OBE." alt="" coords="5,5,171,32"/>
-<area shape="rect" id="node3" href="$classWallet.html#a2ed28beb7c6e9c3f3806cf9b748dbef1" title="Executes sale against user wallet." alt="" coords="13,56,163,83"/>
-<area shape="rect" id="node4" href="$classCsvReader.html#a783cc9207a6751d167f8f1d253dead3f" title="Reads a CSV file containing orderbook entry data into a vector." alt="" coords="11,107,165,133"/>
-</map>

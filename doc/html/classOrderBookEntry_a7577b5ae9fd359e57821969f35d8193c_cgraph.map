@@ -1,4 +1,0 @@
-<map id="OrderBookEntry::stringsToOBE" name="OrderBookEntry::stringsToOBE">
-<area shape="rect" id="node1" title="Generates a OrderBookEntry object." alt="" coords="5,13,223,39"/>
-<area shape="rect" id="node2" href="$classOrderBookEntry.html#a3208777d7490b6b372200d691d480ae8" title="Returns OrderBookType representation of a given string." alt="" coords="271,5,453,47"/>
-</map>
