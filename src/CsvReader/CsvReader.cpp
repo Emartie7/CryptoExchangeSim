@@ -87,7 +87,7 @@ std::vector<OrderBookEntry> CsvReader::readCSV(std::string csvFilename)
 
             try
             {
-                entries.push_back(stringsToOBE(tokens));
+                entries.push_back(OrderBookEntry::stringsToOBE(tokens));
                 nLines++;
             }
             catch(const std::exception& e)
@@ -140,68 +140,4 @@ std::vector<std::string> CsvReader::tokenise(std::string lineIn, char separator)
     } while (end > 0);
     
     return tokens;
-}
-/**
- * @brief Generates a OrderBookEntry object.
- * 
- * Takes a vector of strings and converts types to return a new OBE.
- * @param tokens Vector containing OBE attributes as strings.
- */
-OrderBookEntry CsvReader::stringsToOBE(std::vector<std::string> tokens)
-{
-    double price, amount;
-    try
-    {
-        //OrderBook typecast
-        price = std::stod(tokens[3]);
-        amount = std::stod(tokens[4]);
-    }
-    catch(const std::exception& e)
-    {
-        std::cout << "CsvReader::stringsToOBE - Error in string to OBE type conversion." << std::endl;
-        std::cout << "   " << e.what() << std::endl;
-        throw;
-    }
-    OrderBookEntry obe{tokens[0],
-                       tokens[1],
-                       OrderBookEntry::stringToObeType(tokens[2]),
-                       price,
-                       amount};
-    return obe;
-}
-
-/**
- * @brief Generates a OrderBookEntry object.
- * 
- * Takes string args. and converts types to return a new OBE.
- * @param priceString Order price as a string
- * @param amountString Order amount as a string
- * @param timestamp Timestamp as a string
- * @param product Product type (i.e. "BTC/ETH" as a string
- * @param orderType Bid or Ask
- */
-OrderBookEntry CsvReader::stringsToOBE(std::string priceString,
-                                    std::string amountString,
-                                    std::string timestamp,
-                                    std::string product,
-                                    OrderBookType orderType)
-{
-    double price, amount;
-    try 
-    {
-        price = std::stod(priceString);
-        amount = std::stod(amountString);
-    }catch(const std::exception& e)
-    {
-        std::cout << "CSVReader::stringsToOBE Bad float! " << priceString<< std::endl;
-        std::cout << "CSVReader::stringsToOBE Bad float! " << amountString<< std::endl;
-        throw; // throw up to the calling function
-    }
-    OrderBookEntry obe{timestamp,
-                       product,
-                       orderType,
-                       price,
-                       amount
-    };
-    return obe;   
 }

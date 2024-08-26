@@ -33,6 +33,7 @@
  ***********************************************/
 #include "UserMenuIF.h"
 #include "CsvReader.h"
+#include "OrderBookLib.h"
 /** @cond STDINCLUDES */
 #include <iostream>
 #include <map>
@@ -236,7 +237,7 @@ void MerkelMain::enterAsk()
     {
         try
         {
-            OrderBookEntry obe = CsvReader::stringsToOBE(tokens[1],
+            OrderBookEntry obe = OrderBookEntry::stringsToOBE(tokens[1],
                                                         tokens[2],
                                                         currentTime,
                                                         tokens[0],
@@ -285,7 +286,7 @@ void MerkelMain::makeBid()
     {
         try
         {
-            OrderBookEntry obe = CsvReader::stringsToOBE(tokens[1],
+            OrderBookEntry obe = OrderBookEntry::stringsToOBE(tokens[1],
                                                         tokens[2],
                                                         currentTime,
                                                         tokens[0],
