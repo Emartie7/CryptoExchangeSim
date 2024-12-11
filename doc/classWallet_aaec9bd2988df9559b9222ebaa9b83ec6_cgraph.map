@@ -1,0 +1,4 @@
+<map id="Wallet::removeCurrency" name="Wallet::removeCurrency">
+<area shape="rect" id="node1" title="Removes currency from Wallet." alt="" coords="5,5,184,32"/>
+<area shape="rect" id="node2" href="$classWallet.html#a887617e998537b57da065dfc190bed7d" title="Determines whether currency exists in wallet in the specified amount." alt="" coords="232,5,416,32"/>
+</map>
