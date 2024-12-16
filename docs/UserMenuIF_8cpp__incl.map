@@ -1,0 +1,8 @@
+<map id="src/UserMenuIF/UserMenuIF.cpp" name="src/UserMenuIF/UserMenuIF.cpp">
+<area shape="rect" id="node1" title="Source file for processing user selections made in the MerkleRex menu." alt="" coords="129,5,360,32"/>
+<area shape="rect" id="node2" href="$UserMenuIF_8h.html" title="Source file for processing user selections made in the MerkleRex menu." alt="" coords="96,80,207,107"/>
+<area shape="rect" id="node4" href="$OrderBookLib_8h.html" title="Header file for functionality related to order book entries." alt="" coords="147,229,342,271"/>
+<area shape="rect" id="node6" href="$CsvReader_8h.html" title="Source code for reading data sets from CSV files." alt="" coords="283,80,385,107"/>
+<area shape="rect" id="node3" href="$OrderBook_8h.html" title="Header file for functionality related to order book class." alt="" coords="5,155,108,181"/>
+<area shape="rect" id="node5" href="$Wallet_8h.html" title="Header file for functionality related to currency wallet." alt="" coords="133,155,207,181"/>
+</map>
