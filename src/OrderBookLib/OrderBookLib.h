@@ -52,12 +52,11 @@ class OrderBookEntry
         static bool compareByTimestamp(const OrderBookEntry &e1, const OrderBookEntry &e2);
         static bool compareByPriceAsc(OrderBookEntry & e1,OrderBookEntry & e2);
         static bool compareByPriceDesc(OrderBookEntry & e1,OrderBookEntry & e2);
+        static OrderBookEntry stringsToOBE(std::string price,
+                                    std::string amount,
+                                    std::string timestamp,
+                                    std::string product,
+                                    OrderBookType OrderBookType);
+        static OrderBookEntry stringsToOBE(std::vector<std::string> strings);
 };
-/********************************************//**
- *  Function Prototypes
- ***********************************************/
-void printEntryPrices(std::vector<OrderBookEntry>& entries);
-double computeHighPrice(std::vector<OrderBookEntry>& entries);
-double computeLowPrice(std::vector<OrderBookEntry>& entries);
-double averagePrice(std::vector<OrderBookEntry>& entries);
-void countOrderTypes(std::vector<OrderBookEntry>& entries);
+
