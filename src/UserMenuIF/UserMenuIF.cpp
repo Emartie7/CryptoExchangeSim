@@ -218,6 +218,11 @@ void MerkelMain::printExchangeStats()
  * @brief Generate an Ask to be added to the orderbook.
  * 
  * Prompts user for input to generate an OrderBookEntry object which is added to orderbook at the current time.
+ * Ask must be in the format: "BTC/ETH,200,5" where:
+ * BTC -> product we are offering for sale
+ * ETH -> product we are requesting
+ * 200 -> amount of requested product (i.e. ETH) we are asking for
+ * 5   -> amount of sale product (i.e. BTC) we are offering for the requested product
  */
 void MerkelMain::enterAsk()
 {
@@ -267,6 +272,11 @@ void MerkelMain::enterAsk()
  * @brief Generate an Bid to be added to the orderbook.
  * 
  * Prompts user for input to generate an OrderBookEntry object which is added to orderbook at the current time.
+ * Bid must be in the format: "DOGE/BTC,0.25,5" where:
+ * DOGE -> product we want to buy
+ * BTC  -> product we are offering
+ * 0.25 -> Offered price (i.e [BTC price]/[DOGE price])
+ * 5    -> Amount of product we want to buy (i.e. how much DOGE we want to buy.)
  */
 void MerkelMain::makeBid()
 {
