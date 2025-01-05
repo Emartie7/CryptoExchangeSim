@@ -1,4 +1,0 @@
-<map id="Wallet::canFulfillOrder" name="Wallet::canFulfillOrder">
-<area shape="rect" id="node1" title="Determines whether wallet can satisfy the transaction described by an OBE." alt="" coords="5,5,171,32"/>
-<area shape="rect" id="node2" href="$classCsvReader.html#abac55c1854671f82d507467fb7c70a6b" title="Tokenises input string into sub&#45;components as separated by the input char." alt="" coords="219,5,373,32"/>
-</map>
