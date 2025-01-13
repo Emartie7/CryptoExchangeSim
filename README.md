@@ -22,3 +22,8 @@ cmake 3.29.3
          > cmake --build build   
          > ./build/MerkleRex_Test  
 
+4. Generate documentation  
+      In project root directory run the "Generate_Docs" script.  
+         Example:  
+         > sh Generate_Docs  
+
