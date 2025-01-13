@@ -15,7 +15,7 @@
 /**
  * @file Wallet.cpp
  * @author Edward Martinez
- * @brief Header file for functionality related to currency wallet.
+ * @brief Implementation of currency wallet class.
  * @version 0.1
  * @date 2024-07-15
  * 

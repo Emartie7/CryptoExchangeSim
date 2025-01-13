@@ -1,0 +1,6 @@
+<map id="src/UserMenuIF/UserMenuIF.h" name="src/UserMenuIF/UserMenuIF.h">
+<area shape="rect" id="node1" title="Source file for processing user selections made in the MerkleRex menu." alt="" coords="51,5,266,32"/>
+<area shape="rect" id="node2" href="$OrderBook_8h.html" title="Header file for functionality related to order book class." alt="" coords="51,80,154,107"/>
+<area shape="rect" id="node4" href="$Wallet_8h.html" title="Interface for simulator wallet." alt="" coords="179,80,253,107"/>
+<area shape="rect" id="node3" href="$OrderBookLib_8h.html" title="Header file for functionality related to order book entries." alt="" coords="5,155,200,196"/>
+</map>

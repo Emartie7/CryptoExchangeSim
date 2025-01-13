@@ -1,0 +1,5 @@
+#Run doxygen for this project
+doxygen MerkelDoxy_Config
+
+#Rename output directory to be compatible with Github pages
+mv doc docs

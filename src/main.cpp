@@ -51,7 +51,7 @@
 /***************************************************************************//**
  * Main(void)
  *
- * Present user with an interactive menu. Always returns 0
+ * Entry point for simulator. Presents user with an interactive menu.
  *
  * @param none Nothing yet
  ******************************************************************************/

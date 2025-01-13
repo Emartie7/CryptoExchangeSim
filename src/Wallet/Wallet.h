@@ -15,7 +15,7 @@
 /**
  * @file Wallet.h
  * @author Edward Martinez
- * @brief Header file for functionality related to currency wallet.
+ * @brief Interface for simulator wallet.
  * @version 0.1
  * @date 2024-07-15
  * 
